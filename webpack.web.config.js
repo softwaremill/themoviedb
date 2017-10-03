@@ -7,6 +7,16 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const production = process.argv.indexOf('-p') !== -1;
 
+const serverUrl = "http://localhost:3000";
+const nodeEnv = process.env.NODE_ENV || "development";
+
+const serverVariables = {
+    "process.env": {
+        NODE_ENV: JSON.stringify(nodeEnv)
+    },
+    SERVER_URL: JSON.stringify(serverUrl),
+};
+
 const plugins = [
 	new HtmlWebpackPlugin({
 		template: './web/index.ejs',
@@ -14,11 +24,13 @@ const plugins = [
 		inject: true
 	}),
 	new ExtractTextPlugin("app.[contenthash].css"),
+    new webpack.DefinePlugin(serverVariables),
     new webpack.ProvidePlugin({
         jQuery: 'jquery',
         $: 'jquery',
         jquery: 'jquery'
-    }),	// new CleanWebpackPlugin([production ? './dist' : './build']),
+    }),
+    // new CleanWebpackPlugin([production ? './dist' : './build']),
 ];
 
 module.exports = {

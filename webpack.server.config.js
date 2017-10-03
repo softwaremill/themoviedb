@@ -3,18 +3,7 @@ const nodeExternals = require('webpack-node-externals');
 
 const production = process.argv.indexOf('-p') !== -1;
 
-const serverUrl = "http://localhost:3000";
-const nodeEnv = process.env.NODE_ENV || "development";
-
-const serverVariables = {
-    "process.env": {
-        NODE_ENV: JSON.stringify(nodeEnv)
-    },
-    SERVER_URL: JSON.stringify(serverUrl),
-};
-
 const plugins = [
-	new webpack.DefinePlugin(serverVariables)
 ];
 
 module.exports = {
