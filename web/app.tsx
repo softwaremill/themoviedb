@@ -81,7 +81,8 @@ class App extends React.Component<{}, AppState> {
     
     updateQuery(e: any) {
         this.setState({
-            query: e.target.value
+            query: e.target.value,
+            currPage: 1
         }, () => {
             this.loadMovies();
         });
