@@ -14,7 +14,11 @@ const plugins = [
 		inject: true
 	}),
 	new ExtractTextPlugin("app.[contenthash].css"),
-	// new CleanWebpackPlugin([production ? './dist' : './build']),
+    new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery'
+    }),	// new CleanWebpackPlugin([production ? './dist' : './build']),
 ];
 
 module.exports = {

@@ -2,6 +2,7 @@ import * as express from "express";
 import * as http from "http";
 import * as path from "path";
 import * as bodyParser from "body-parser";
+import * as cors from "cors";
 import "isomorphic-fetch";
 require('es6-promise').polyfill();
 
@@ -14,6 +15,9 @@ const movieDb = new MovieDb(apiKey);
 
 const app = express();
 
+app.use(cors({
+    origin: ["http://localhost:3000", "http://localhost:8080"]
+}));
 
 app.use(bodyParser.urlencoded({
     limit: '150mb',
