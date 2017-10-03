@@ -38,7 +38,8 @@ module.exports = {
 	entry: "./web/app.tsx",
 	output: {
 		filename: production ? "app.[hash].js" : "app.js",
-		path: __dirname + (production ? "/dist" : "/build")
+		path: __dirname + (production ? "/dist" : "/build"),
+		publicPath: '/'
 	},
 	devtool: production ? '' : "source-map",
 	resolve: {
