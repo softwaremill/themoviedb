@@ -13,14 +13,14 @@
   "author": "Daniel Kos",
   "license": "ISC",
   "devDependencies": {
+    "@types/body-parser": "1.16.5",
+    "@types/cors": "2.8.1",
+    "@types/express": "4.0.37",
     "@types/isomorphic-fetch": "0.0.34",
     "@types/react": "16.0.7",
     "@types/react-dom": "15.5.5",
-    "@types/body-parser": "1.16.5",
-    "@types/express": "4.0.37",
     "@types/react-router": "4.0.15",
     "@types/react-router-dom": "4.0.8",
-    "@types/cors": "2.8.1",
     "awesome-typescript-loader": "3.2.3",
     "clean-webpack-plugin": "0.1.17",
     "concurrently": "3.5.0",
@@ -47,6 +47,7 @@
     "jquery": "3.2.1",
     "react": "16.0.0",
     "react-dom": "16.0.0",
+    "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
     "semantic-ui-css": "2.2.12"
   }

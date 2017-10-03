@@ -1,11 +1,11 @@
 
-import { MovieSearchResults } from "../model/movie";
+import { Movie, MovieSearchResults } from "../model/movie";
 
 export class MovieDb {
     constructor(private apiKey: string) {}
 
-    apiReq(cmd: string, params: string): string {
-        return `https://api.themoviedb.org/3/${cmd}?api_key=${this.apiKey}&${params}`;
+    apiReq(cmd: string, params?: string): string {
+        return `https://api.themoviedb.org/3/${cmd}?api_key=${this.apiKey}${params ? `&${params}` : ''}`;
     }
     
     searchMovie(query: string, page: number = 1): Promise<MovieSearchResults> {
@@ -13,8 +13,10 @@ export class MovieDb {
             .then(data => data.json());
     }
     
-    //movieInfo(options: InfoOptions): Promise<MovieInfo> {
-    //}
+    movieInfo(movieId: string): Promise<Movie> {
+        return fetch(this.apiReq(`movie/${movieId}`))
+            .then(data => data.json())
+    }
     //movieImages(options: InfoOptions, callback: (err: any, images: MovieImages) => void): void;
     
 }

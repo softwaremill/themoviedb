@@ -1,15 +1,19 @@
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import * as fetch from "isomorphic-fetch";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from "react-router-dom"
+import "./declarations";
+
 require('es6-promise').polyfill();
 import "./app.css";
 
 import { MovieSearchResult, MovieSearchResults } from "../model/movie";
 import { Pagination } from "./components/pagination";
-
-declare function require(path: string): any;
-declare const $: any;
-declare const SERVER_URL: string;
+import { MovieDetails } from "./views/movie-details/movie-details";
 
 require("semantic-ui-css/semantic.css");
 require("semantic-ui-css/semantic.js");
@@ -128,7 +132,7 @@ class App extends React.Component<{}, AppState> {
                                 {movie.poster_path && <img src={`http://image.tmdb.org/t/p/w185${movie.poster_path}`}/>}
                             </div>
                             <div className="content">
-                                <a className="header">{movie.title || movie.original_title || movie.name}</a>
+                                <Link to={`/movie/${movie.id}`} className="header">{movie.title || movie.original_title || movie.name}</Link>
                             </div>
                             <div className="extra">
                                 Rating:
@@ -148,4 +152,11 @@ class App extends React.Component<{}, AppState> {
     }
 }
 
-ReactDOM.render(<App/>, document.getElementById('app'));
+const Main = () => <Router>
+    <div>
+        <Route exact path="/" component={App}/>
+        <Route path="/movie/:movieId" component={MovieDetails}/>
+    </div>
+</Router>;
+
+ReactDOM.render(<Main/>, document.getElementById('app'));

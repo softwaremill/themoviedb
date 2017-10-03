@@ -40,7 +40,7 @@ export interface MovieSearchResult {
     name: string;
 }
 
-export interface MovieInfo {
+export interface Movie {
     adult: boolean;
     backdrop_path: string;
     belongs_to_collection: any;

@@ -36,6 +36,12 @@ app.get('/search/:query/:page', (req, resp) => {
     });
 });
 
+app.get('/movie/:id', (req, resp) => {
+    movieDb.movieInfo(req.params.id).then(data => {
+        resp.send(data);
+    });
+});
+
 app.use("/", express.static(rootDir));
 app.use("/", express.static(path.join(rootDir, "../assets")));
 
