@@ -1,4 +1,5 @@
 const webpack = require('./webpack.web.config.js');
+const path = require('path');
 
 module.exports = function(config) {
 	config.set({
@@ -9,6 +10,7 @@ module.exports = function(config) {
 			clearContext: false
 		},
 		files: [
+			path.join(__dirname, 'node_modules', 'es6-promise', 'dist', 'es6-promise.min.js'),
 			'karma.tests.js'
 		],
 		preprocessors: {

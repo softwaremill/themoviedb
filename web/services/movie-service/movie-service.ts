@@ -1,5 +1,5 @@
-import { MovieSearchResult, MovieSearchResults } from "../../../model/movie";
-import * as fetch from "isomorphic-fetch";
+import { Movie, MovieSearchResult, MovieSearchResults } from "../../../model/movie";
+import axios from "axios";
 
 export interface MovieListInfo {
     movies?: MovieSearchResult[];
@@ -13,8 +13,8 @@ export class MovieService {
     public movieListInfo: MovieListInfo;
     
     loadMovies(query: string, page: number): Promise<MovieListInfo> {
-        return fetch(`${SERVER_URL}/search/${query}/${page}`)
-            .then(data => data.json())
+        return axios.get(`${SERVER_URL}/search/${query}/${page}`)
+            .then(data => data.data)
             .then((data: MovieSearchResults) => {
                 const movieListInfo = {
                     movies: data.results,
@@ -26,5 +26,10 @@ export class MovieService {
                 this.movieListInfo = movieListInfo;
                 return movieListInfo;
             });
+    }
+
+    loadMovie(movieId: number): Promise<Movie> {
+        return axios.get(`${SERVER_URL}/movie/${movieId}`)
+            .then(data => data.data)
     }
 }

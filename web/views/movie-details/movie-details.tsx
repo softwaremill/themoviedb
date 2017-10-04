@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Movie } from "../../../model/movie";
 import { match } from "react-router-dom";
-import * as fetch from "isomorphic-fetch";
+import { MovieService } from "../../services/movie-service/movie-service";
 import "./movie-details.css";
 
 interface MovieDetailsProps {
@@ -12,6 +12,8 @@ interface MovieDetailsState {
     movie: Movie;
 }
 
+declare const movieService: MovieService;
+
 export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetailsState> {
     constructor() {
         super();
@@ -20,8 +22,7 @@ export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetail
         };
     }
     componentDidMount() {
-        fetch(`${SERVER_URL}/movie/${this.props.match.params.movieId}`)
-            .then(data => data.json())
+        movieService.loadMovie(this.props.match.params.movieId)
             .then((data: Movie) => {
                 this.setState({
                     movie: data

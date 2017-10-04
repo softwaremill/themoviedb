@@ -60,7 +60,10 @@ module.exports = {
 			},
 			{
 				test: /\.png$/,
-				loader: "url-loader?limit=100000"
+				loader: "url-loader",
+				options: {
+					limit: 100000
+				}
 			},
 			{
 				test: /\.jpg$/,
@@ -72,11 +75,19 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+				loader: 'url-loader',
+				options: {
+					limit: 100000,
+					mimeType: 'application/font-woff'
+				}
 			},
 			{
 				test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
+				loader: 'url-loader',
+				options: {
+					limit: 100000,
+					mimeType: 'application/octet-stream'
+				}
 			},
 			{
 				test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -84,7 +95,11 @@ module.exports = {
 			},
 			{
 				test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-				loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+				loader: 'url-loader',
+				options: {
+					limit: 100000,
+					mimeType: 'image/svg+xml'
+				}
 			}
 		]
 	},
