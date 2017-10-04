@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import "./declarations";
 import "isomorphic-fetch";
 require('es6-promise').polyfill();
@@ -8,13 +8,11 @@ import "./app.css";
 
 import { MovieDetails } from "./views/movie-details/movie-details";
 import { MovieList } from "./views/movie-list/movie-list";
-import { MovieListInfo, MovieService } from "./services/movie-service/movie-service";
+import { MovieListInfo, movieService } from "./services/movie-service/movie-service";
 import { MovieSearchResult } from "../model/movie";
 
 require("semantic-ui-css/semantic.css");
 require("semantic-ui-css/semantic.js");
-
-const movieService = new MovieService();
 
 interface AppState {
     query?: string;
@@ -22,7 +20,6 @@ interface AppState {
     currPage?: number;
     totalPages?: number;
     movies?: MovieSearchResult[];
-
 }
 
 class App extends React.Component<{}, AppState> {
@@ -108,10 +105,10 @@ class App extends React.Component<{}, AppState> {
         return <div>
             <div className="ui top fixed inverted menu">
                 <div className="ui container search-box">
-                    <a href="#" className="header item">
+                    <Link to="/" className="header item">
                         <img className="logo" src="/movie.png"/>
                         Movie browser
-                    </a>
+                    </Link>
                     <div className="ui transparent inverted icon input search-box">
                         <i className="search icon"/>
                         <input type="text" placeholder="Search movie"

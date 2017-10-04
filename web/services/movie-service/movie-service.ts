@@ -33,3 +33,5 @@ export class MovieService {
             .then(data => data.data)
     }
 }
+
+export const movieService = new MovieService();

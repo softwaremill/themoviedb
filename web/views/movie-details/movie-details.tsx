@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Movie } from "../../../model/movie";
-import { match } from "react-router-dom";
-import { MovieService } from "../../services/movie-service/movie-service";
+import { Link, match } from "react-router-dom";
+import { movieService } from "../../services/movie-service/movie-service";
 import "./movie-details.css";
 
 interface MovieDetailsProps {
@@ -11,8 +11,6 @@ interface MovieDetailsProps {
 interface MovieDetailsState {
     movie: Movie;
 }
-
-declare const movieService: MovieService;
 
 export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetailsState> {
     constructor() {
@@ -35,10 +33,10 @@ export class MovieDetails extends React.Component<MovieDetailsProps, MovieDetail
         return <div className="movie-details">
             <div className="ui top fixed inverted menu">
                 <div className="ui container">
-                    <a href="#" className="header item">
+                    <Link to="/" className="header item">
                         <img className="logo" src="/movie.png"/>
                         Movie browser
-                    </a>
+                    </Link>
                     <div className="item">
                         {movie.title || movie.original_title}
                     </div>
