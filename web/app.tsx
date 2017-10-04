@@ -26,6 +26,7 @@ interface AppState {
 }
 
 class App extends React.Component<{}, AppState> {
+    private queryTimerId: any;
 
     constructor() {
         super();
@@ -44,7 +45,7 @@ class App extends React.Component<{}, AppState> {
     }
     
     componentWillUnmount() {
-        movieService.clear();
+        this.clearTimer();
     }
     
     updateQuery(e: any) {
@@ -70,10 +71,37 @@ class App extends React.Component<{}, AppState> {
         }
     }
     
-    loadMovies(page: number, immediate: boolean) {
-        movieService.loadMovies(this.state.query, page, immediate, (resp) => {
-            this.updateState(resp);
-        });
+    clearTimer() {
+        if (this.queryTimerId) {
+            clearTimeout(this.queryTimerId);
+        }
+    }
+    
+    loadMovies(query: string, page: number, immediate: boolean) {
+        const initialState: MovieListInfo = {
+            movies: [],
+            currPage: 1,
+            totalPages: 1,
+            loading: false
+        };
+        this.clearTimer();
+        this.queryTimerId = setTimeout(() => {
+            if (query.trim() !== "") {
+                this.setState({
+                    loading: true
+                });
+                movieService.loadMovies(query, page)
+                    .then((data: MovieListInfo) => {
+                        this.updateState(data);
+                    })
+                    .catch(err => {
+                        this.updateState(initialState);
+                    });
+
+            } else if (immediate) {
+                this.updateState(initialState);
+            }
+        }, immediate ? 0 : 2000);                
     }
     
     render() {
@@ -92,7 +120,7 @@ class App extends React.Component<{}, AppState> {
                             onChange={e => this.updateQuery(e)}
                             onKeyDown={e => {
                                 if (e.keyCode === 13) {
-                                    this.loadMovies(1, true);
+                                    this.loadMovies(this.state.query, 1, true);
                                 }
                             }}/>
                     </div>
