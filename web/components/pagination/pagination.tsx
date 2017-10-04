@@ -45,9 +45,11 @@ export class Pagination extends React.Component<PaginationProps, {}> {
     
     render() {
         const pages = this.pagination(this.props.currPage, this.props.totalPages);
+        const prevAvailable = this.props.currPage > 1;
+        const nextAvailable = this.props.currPage < this.props.totalPages;
         return <div className="ui floated right pagination menu">
-            <a className={"icon item" + (this.props.currPage <= 1 ? " disabled" : "")}
-                onClick={() => this.props.onPageChange(this.props.currPage - 1)}>
+            <a className={"icon item" + (prevAvailable ? "" : " disabled")}
+                onClick={() => { if (prevAvailable) this.props.onPageChange(this.props.currPage - 1); }}>
                 <i className="left chevron icon"/>
             </a>
             {pages.map((page, idx) => <a
@@ -60,8 +62,8 @@ export class Pagination extends React.Component<PaginationProps, {}> {
                 key={`page/${idx}`}>
                 {page < 0 ? '...' : page}
             </a>)}
-            <a className={"icon item" + (this.props.currPage >= this.props.totalPages ? " disabled" : "")}
-                onClick={() => this.props.onPageChange(this.props.currPage + 1)}>
+            <a className={"icon item" + (nextAvailable ? "" : " disabled")}
+                onClick={() => { if (nextAvailable) this.props.onPageChange(this.props.currPage + 1); }}>
                 <i className="right chevron icon"/>
             </a>
         </div>

@@ -9,7 +9,7 @@ interface MovieListProps {
     movies: MovieSearchResult[],
     currPage: number;
     totalPages: number;
-    loadMovies: (page: number, immediate: boolean) => void;
+    loadMovies: (query: string, page: number, immediate: boolean) => void;
 }
 
 export const MovieList = (props: MovieListProps) => {
@@ -21,7 +21,7 @@ export const MovieList = (props: MovieListProps) => {
             <Pagination
                 currPage={props.currPage}
                 totalPages={props.totalPages}
-                onPageChange={page => props.loadMovies(page, true)}/>
+                onPageChange={page => props.loadMovies(props.query, page, true)}/>
         </div>}
     </div>
 };
