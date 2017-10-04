@@ -1,6 +1,6 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./declarations";
 import "isomorphic-fetch";
 require('es6-promise').polyfill();

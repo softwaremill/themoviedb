@@ -26,10 +26,10 @@ export const MovieList = (props: MovieListProps) => {
     </div>
 };
 
-const MovieCard = (props: { movie: MovieSearchResult }) => {
+export const MovieCard = (props: { movie: MovieSearchResult }) => {
     const movieRating = (votes: number) => Math.round((votes || 0) * 0.5);
     const movie = props.movie;
-    return <div className="card">
+    return <div className="card movie-card">
         <div className="image">
             {movie.poster_path && <img src={`${IMAGE_URL}/w185${movie.poster_path}`}/>}
         </div>
