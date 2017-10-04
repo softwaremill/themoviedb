@@ -8,13 +8,21 @@ import "./app.css";
 
 import { MovieDetails } from "./views/movie-details/movie-details";
 import { MovieList } from "./views/movie-list/movie-list";
+import { MovieListInfo, MovieService } from "./services/movie-service/movie-service";
+import { MovieSearchResult } from "../model/movie";
 
 require("semantic-ui-css/semantic.css");
 require("semantic-ui-css/semantic.js");
 
+const movieService = new MovieService();
+
 interface AppState {
     query?: string;
     loading?: boolean;
+    currPage?: number;
+    totalPages?: number;
+    movies?: MovieSearchResult[];
+
 }
 
 class App extends React.Component<{}, AppState> {
@@ -23,12 +31,20 @@ class App extends React.Component<{}, AppState> {
         super();
         this.state = {
             query: '',
-            loading: false
+            loading: false,
+            currPage: 1,
+            totalPages: 1,
+            movies: []
         }
     }
     
     componentDidMount() {
         (this.refs['searchBox'] as HTMLElement).focus();
+        this.updateState(movieService.movieListInfo);
+    }
+    
+    componentWillUnmount() {
+        movieService.clear();
     }
     
     updateQuery(e: any) {
@@ -37,15 +53,27 @@ class App extends React.Component<{}, AppState> {
         });
     }
     
-    updateLoading(loading: boolean) {
-        this.setState({
-            loading: loading
-        });
+    updateState(resp: MovieListInfo) {
+        if (resp) {
+            this.setState({
+                movies: resp.movies ? resp.movies : this.state.movies,
+                query: resp.query ? resp.query: this.state.query,
+                currPage: resp.currPage ? resp.currPage : this.state.currPage,
+                totalPages: resp.totalPages ? resp.totalPages : this.state.totalPages,
+                loading: resp.loading
+            }, () => {
+                $('.ui.rating').rating({
+                    initialRating: 0,
+                    maxRating: 5
+                })
+            });
+        }
     }
     
-    updateMovieList() {
-        const movieList = this.refs["movieList"] as MovieList;
-        movieList.loadMovies(this.state.query, 1, true);
+    loadMovies(page: number, immediate: boolean) {
+        movieService.loadMovies(this.state.query, page, immediate, (resp) => {
+            this.updateState(resp);
+        });
     }
     
     render() {
@@ -64,16 +92,19 @@ class App extends React.Component<{}, AppState> {
                             onChange={e => this.updateQuery(e)}
                             onKeyDown={e => {
                                 if (e.keyCode === 13) {
-                                    this.updateMovieList();
+                                    this.loadMovies(1, true);
                                 }
                             }}/>
                     </div>
                 </div>
                 {this.state.loading && <div className="loader"/>}
             </div>
-            <MovieList ref="movieList"
+            <MovieList
                 query={this.state.query}
-                onLoad={loading => this.updateLoading(loading)}/>
+                movies={this.state.movies}
+                currPage={this.state.currPage}
+                totalPages={this.state.totalPages}
+                loadMovies={this.loadMovies.bind(this)}/>
         </div>
     }
 }

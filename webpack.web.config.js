@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const production = process.argv.indexOf('-p') !== -1;
 
 const serverUrl = "http://localhost:3000";
+const imageUrl = "http://image.tmdb.org/t/p";
 const nodeEnv = process.env.NODE_ENV || "development";
 
 const serverVariables = {
@@ -15,6 +16,7 @@ const serverVariables = {
         NODE_ENV: JSON.stringify(nodeEnv)
     },
     SERVER_URL: JSON.stringify(serverUrl),
+    IMAGE_URL: JSON.stringify(imageUrl)
 };
 
 const plugins = [

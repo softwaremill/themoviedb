@@ -1,4 +1,3 @@
-
 import { Movie, MovieSearchResults } from "../model/movie";
 
 export class MovieDb {
@@ -9,7 +8,7 @@ export class MovieDb {
     }
     
     searchMovie(query: string, page: number = 1): Promise<MovieSearchResults> {
-        return fetch(this.apiReq('search/multi', `query=${query}&page=${page}`))
+        return fetch(this.apiReq('search/movie', `query=${query}&page=${page}`))
             .then(data => data.json());
     }
     
@@ -17,6 +16,4 @@ export class MovieDb {
         return fetch(this.apiReq(`movie/${movieId}`))
             .then(data => data.json())
     }
-    //movieImages(options: InfoOptions, callback: (err: any, images: MovieImages) => void): void;
-    
 }
