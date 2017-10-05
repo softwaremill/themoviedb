@@ -1,18 +1,19 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import "./declarations";
-import "isomorphic-fetch";
-require('es6-promise').polyfill();
-import "./app.css";
 
 import { MovieDetails } from "./views/movie-details/movie-details";
 import { MovieList } from "./views/movie-list/movie-list";
 import { MovieListInfo, movieService } from "./services/movie-service/movie-service";
 import { MovieSearchResult } from "../model/movie";
 
+import "./declarations";
+require('es6-promise').polyfill();
+
 require("semantic-ui-css/semantic.css");
 require("semantic-ui-css/semantic.js");
+
+import "./app.css";
 
 interface AppState {
     query?: string;
