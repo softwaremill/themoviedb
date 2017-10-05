@@ -11,11 +11,11 @@ module.exports = function(config) {
 		},
 		files: [
 			path.join(__dirname, 'node_modules', 'es6-promise', 'dist', 'es6-promise.min.js'),
-			'karma.tests.js'
+			'./karma.tests.js'
 		],
 		preprocessors: {
 			'./web/**/*.(ts|js|tsx)': ['sourcemap'],
-			'karma.tests.js': ['webpack', 'sourcemap']
+			'./karma.tests.js': ['webpack', 'sourcemap']
 		},
 		mime: {
 			'text/x-typescript': ['ts', 'tsx']
@@ -23,7 +23,7 @@ module.exports = function(config) {
 		port: 9876,
 		colors: true,
 		autoWatch: false,
-		browsers: ['PhantomJS2'],
+		browsers: ['Chrome'],
 		singleRun: true,
 		webpack: webpack
 	});

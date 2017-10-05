@@ -59,7 +59,7 @@ class App extends React.Component<{}, AppState> {
                 query: resp.query ? resp.query: this.state.query,
                 currPage: resp.currPage ? resp.currPage : this.state.currPage,
                 totalPages: resp.totalPages ? resp.totalPages : this.state.totalPages,
-                loading: resp.loading
+                loading: false
             }, () => {
                 $('.ui.rating').rating({
                     initialRating: 0,
@@ -80,7 +80,6 @@ class App extends React.Component<{}, AppState> {
             movies: [],
             currPage: 1,
             totalPages: 1,
-            loading: false
         };
         this.clearTimer();
         this.queryTimerId = setTimeout(() => {

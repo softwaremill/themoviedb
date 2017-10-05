@@ -27,8 +27,7 @@ describe("Movie service", () => {
             movies: [] as MovieSearchResult[],
             query: "barbie",
             currPage: 1,
-            totalPages: 10,
-            loading: false
+            totalPages: 10
         };
 
         jasmine.Ajax.stubRequest(`${SERVER_URL}/search/barbie/1`).andReturn({

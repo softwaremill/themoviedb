@@ -6,7 +6,6 @@ export interface MovieListInfo {
     query?: string;
     currPage?: number;
     totalPages?: number;
-    loading: boolean;
 }
 
 export class MovieService {
@@ -20,8 +19,7 @@ export class MovieService {
                     movies: data.results,
                     query: query,
                     currPage: Math.max(1, data.page),
-                    totalPages: Math.max(1, data.total_pages),
-                    loading: false
+                    totalPages: Math.max(1, data.total_pages)
                 };
                 this.movieListInfo = movieListInfo;
                 return movieListInfo;
